@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { categories } from '@/config/categories';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -47,7 +48,14 @@ export default function Header() {
                     {/* Logo */}
                     <div className="flex-shrink-0">
                         <Link href="/" className="flex items-center">
-                            <span className="text-2xl font-bold text-gray-900">Baku&apos;s Best</span>
+                            <Image
+                                src="/logo.png"
+                                alt="Baku's Best"
+                                width={0}
+                                height={0}
+                                sizes="100vw"
+                                className="w-30 h-auto"
+                            />
                         </Link>
                     </div>
 
@@ -227,8 +235,8 @@ export default function Header() {
                                     <Link
                                         href="/"
                                         className={`block px-4 py-3 rounded-lg text-base font-medium transition-colors ${isActive('/')
-                                                ? 'bg-blue-50 text-blue-600'
-                                                : 'text-gray-700 hover:bg-gray-50'
+                                            ? 'bg-blue-50 text-blue-600'
+                                            : 'text-gray-700 hover:bg-gray-50'
                                             }`}
                                         onClick={() => setIsMenuOpen(false)}
                                     >
@@ -240,8 +248,8 @@ export default function Header() {
                                         <button
                                             onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
                                             className={`w-full text-left px-4 py-3 rounded-lg text-base font-medium flex items-center justify-between transition-colors ${Object.keys(categories).some(key => isActive(`/${key}`))
-                                                    ? 'bg-blue-50 text-blue-600'
-                                                    : 'text-gray-700 hover:bg-gray-50'
+                                                ? 'bg-blue-50 text-blue-600'
+                                                : 'text-gray-700 hover:bg-gray-50'
                                                 }`}
                                         >
                                             <span>Categories</span>
@@ -275,8 +283,8 @@ export default function Header() {
                                                             key={key}
                                                             href={`/${key}`}
                                                             className={`block px-4 py-3 rounded-lg text-base font-medium transition-colors ${isActive(`/${key}`)
-                                                                    ? 'bg-blue-50 text-blue-600'
-                                                                    : 'text-gray-700 hover:bg-gray-50'
+                                                                ? 'bg-blue-50 text-blue-600'
+                                                                : 'text-gray-700 hover:bg-gray-50'
                                                                 }`}
                                                             onClick={() => {
                                                                 setIsMenuOpen(false);
@@ -294,8 +302,8 @@ export default function Header() {
                                     <Link
                                         href="/blog"
                                         className={`block px-4 py-3 rounded-lg text-base font-medium transition-colors ${isActive('/blog')
-                                                ? 'bg-blue-50 text-blue-600'
-                                                : 'text-gray-700 hover:bg-gray-50'
+                                            ? 'bg-blue-50 text-blue-600'
+                                            : 'text-gray-700 hover:bg-gray-50'
                                             }`}
                                         onClick={() => setIsMenuOpen(false)}
                                     >

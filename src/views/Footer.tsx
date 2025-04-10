@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { categories } from '@/config/categories';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const socialLinks = [
   {
@@ -77,7 +78,14 @@ export default function Footer() {
           {/* Brand Section */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center space-x-2">
-              <span className="text-2xl font-bold text-white">Baku&apos;s Best</span>
+              <Image
+                src="/logo.png"
+                alt="Baku's Best"
+                width={0}
+                height={0}
+                sizes="100vw"
+                className="w-30 h-auto"
+              />
             </Link>
             <p className="text-sm">
               Discover the best places to visit in Azerbaijan&apos;s capital city. From restaurants to historical sites, we&apos;ve got you covered.
