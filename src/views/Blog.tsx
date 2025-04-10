@@ -33,11 +33,10 @@ export default function Blog({ posts, categories }: BlogProps) {
           <button
             key={category}
             onClick={() => setActiveCategory(category)}
-            className={`px-4 py-2 rounded-full ${
-              activeCategory === category
-                ? 'bg-blue-600 text-white'
-                : 'bg-white text-gray-700 hover:bg-gray-100'
-            } focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200`}
+            className={`px-4 py-2 rounded-full ${activeCategory === category
+              ? 'bg-blue-600 text-white'
+              : 'bg-white text-gray-700 hover:bg-gray-100'
+              } focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200`}
           >
             {category}
           </button>
@@ -94,7 +93,7 @@ export default function Blog({ posts, categories }: BlogProps) {
       )}
 
       {/* Pagination */}
-      <div className="mt-12 flex justify-center">
+      {/* <div className="mt-12 flex justify-center">
         <nav className="flex items-center space-x-2">
           <button className="px-3 py-1 rounded-md bg-white text-gray-700 hover:bg-gray-100">
             Previous
@@ -110,7 +109,7 @@ export default function Blog({ posts, categories }: BlogProps) {
             Next
           </button>
         </nav>
-      </div>
+      </div> */}
     </>
   );
 } 

@@ -66,8 +66,8 @@ export default function Header() {
                             <button
                                 onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
                                 className={`text-sm font-medium flex items-center space-x-1 ${Object.keys(categories).some(key => isActive(`/${key}`))
-                                        ? 'text-blue-600'
-                                        : 'text-gray-700 hover:text-blue-600'
+                                    ? 'text-blue-600'
+                                    : 'text-gray-700 hover:text-blue-600'
                                     }`}
                             >
                                 <span>Categories</span>
@@ -100,8 +100,8 @@ export default function Header() {
                                                 key={key}
                                                 href={`/${key}`}
                                                 className={`block px-4 py-2 text-sm ${isActive(`/${key}`)
-                                                        ? 'bg-blue-50 text-blue-600'
-                                                        : 'text-gray-700 hover:bg-gray-50'
+                                                    ? 'bg-blue-50 text-blue-600'
+                                                    : 'text-gray-700 hover:bg-gray-50'
                                                     }`}
                                                 onClick={() => setIsCategoriesOpen(false)}
                                             >
@@ -188,78 +188,125 @@ export default function Header() {
             )}
 
             {/* Mobile Menu */}
-            {isMenuOpen && (
-                <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className="md:hidden bg-white border-t border-gray-200"
-                >
-                    <div className="px-2 pt-2 pb-3 space-y-1">
-                        <Link
-                            href="/"
-                            className={`block px-3 py-2 rounded-md text-base font-medium ${isActive('/') ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50'
-                                }`}
+            <AnimatePresence>
+                {isMenuOpen && (
+                    <>
+                        {/* Backdrop */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
                             onClick={() => setIsMenuOpen(false)}
+                        />
+
+                        {/* Menu Panel */}
+                        <motion.div
+                            initial={{ x: "100%" }}
+                            animate={{ x: 0 }}
+                            exit={{ x: "100%" }}
+                            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                            className="fixed top-0 right-0 h-full w-64 bg-white shadow-xl z-50 md:hidden"
                         >
-                            Home
-                        </Link>
-                        <div className="relative">
-                            <button
-                                onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
-                                className={`w-full text-left px-3 py-2 rounded-md text-base font-medium flex items-center justify-between ${Object.keys(categories).some(key => isActive(`/${key}`))
-                                        ? 'bg-blue-50 text-blue-600'
-                                        : 'text-gray-700 hover:bg-gray-50'
-                                    }`}
-                            >
-                                <span>Categories</span>
-                                <svg
-                                    className={`w-4 h-4 transition-transform duration-200 ${isCategoriesOpen ? 'rotate-180' : ''
-                                        }`}
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M19 9l-7 7-7-7"
-                                    />
-                                </svg>
-                            </button>
-                            {isCategoriesOpen && (
-                                <div className="pl-4 space-y-1">
-                                    {Object.entries(categories).map(([key, category]) => (
-                                        <Link
-                                            key={key}
-                                            href={`/${key}`}
-                                            className={`block px-3 py-2 rounded-md text-base font-medium ${isActive(`/${key}`)
+                            <div className="flex flex-col h-full">
+                                {/* Menu Header */}
+                                <div className="flex items-center justify-end p-4">
+                                    <button
+                                        onClick={() => setIsMenuOpen(false)}
+                                        className="p-2 text-gray-600 hover:text-blue-600 focus:outline-none"
+                                    >
+                                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
+
+                                {/* Menu Content */}
+                                <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                                    <Link
+                                        href="/"
+                                        className={`block px-4 py-3 rounded-lg text-base font-medium transition-colors ${isActive('/')
+                                                ? 'bg-blue-50 text-blue-600'
+                                                : 'text-gray-700 hover:bg-gray-50'
+                                            }`}
+                                        onClick={() => setIsMenuOpen(false)}
+                                    >
+                                        Home
+                                    </Link>
+
+                                    {/* Categories Dropdown */}
+                                    <div className="space-y-2">
+                                        <button
+                                            onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
+                                            className={`w-full text-left px-4 py-3 rounded-lg text-base font-medium flex items-center justify-between transition-colors ${Object.keys(categories).some(key => isActive(`/${key}`))
                                                     ? 'bg-blue-50 text-blue-600'
                                                     : 'text-gray-700 hover:bg-gray-50'
                                                 }`}
-                                            onClick={() => {
-                                                setIsMenuOpen(false);
-                                                setIsCategoriesOpen(false);
-                                            }}
                                         >
-                                            {category.title}
-                                        </Link>
-                                    ))}
+                                            <span>Categories</span>
+                                            <svg
+                                                className={`w-5 h-5 transition-transform duration-200 ${isCategoriesOpen ? 'rotate-180' : ''
+                                                    }`}
+                                                fill="none"
+                                                stroke="currentColor"
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    strokeWidth={2}
+                                                    d="M19 9l-7 7-7-7"
+                                                />
+                                            </svg>
+                                        </button>
+
+                                        <AnimatePresence>
+                                            {isCategoriesOpen && (
+                                                <motion.div
+                                                    initial={{ opacity: 0, height: 0 }}
+                                                    animate={{ opacity: 1, height: "auto" }}
+                                                    exit={{ opacity: 0, height: 0 }}
+                                                    transition={{ duration: 0.2 }}
+                                                    className="pl-4 space-y-1"
+                                                >
+                                                    {Object.entries(categories).map(([key, category]) => (
+                                                        <Link
+                                                            key={key}
+                                                            href={`/${key}`}
+                                                            className={`block px-4 py-3 rounded-lg text-base font-medium transition-colors ${isActive(`/${key}`)
+                                                                    ? 'bg-blue-50 text-blue-600'
+                                                                    : 'text-gray-700 hover:bg-gray-50'
+                                                                }`}
+                                                            onClick={() => {
+                                                                setIsMenuOpen(false);
+                                                                setIsCategoriesOpen(false);
+                                                            }}
+                                                        >
+                                                            {category.title}
+                                                        </Link>
+                                                    ))}
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </div>
+
+                                    <Link
+                                        href="/blog"
+                                        className={`block px-4 py-3 rounded-lg text-base font-medium transition-colors ${isActive('/blog')
+                                                ? 'bg-blue-50 text-blue-600'
+                                                : 'text-gray-700 hover:bg-gray-50'
+                                            }`}
+                                        onClick={() => setIsMenuOpen(false)}
+                                    >
+                                        Blog
+                                    </Link>
                                 </div>
-                            )}
-                        </div>
-                        <Link
-                            href="/blog"
-                            className={`block px-3 py-2 rounded-md text-base font-medium ${isActive('/blog') ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50'
-                                }`}
-                            onClick={() => setIsMenuOpen(false)}
-                        >
-                            Blog
-                        </Link>
-                    </div>
-                </motion.div>
-            )}
+                            </div>
+                        </motion.div>
+                    </>
+                )}
+            </AnimatePresence>
         </header>
     );
 } 
